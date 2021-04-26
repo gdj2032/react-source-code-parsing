@@ -36,7 +36,7 @@ function setAttribute(dom, key, value) {
     key = 'class';
   }
 
-  // 如果是个事件onClick onBlue ...
+  // 如果是个事件onClick onBlur ...
   if (/on\w/.test(key)) {
     //转小写
     key = key.toLowerCase();

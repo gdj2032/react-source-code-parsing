@@ -15,7 +15,7 @@ import ReactDOM from './react-dom';
 
 const ele = (
   <div title='test' style='background: #ff0000;'>
-    <h3 className='title'>hello react</h3>
+    <h3 className='title'>test react</h3>
   </div>
 )
 
@@ -30,3 +30,25 @@ const ele = (
 //2. 组件: 函数组件 类组件
 
 ReactDOM.render(ele, document.querySelector('#root'));
+
+
+// import React from './react';
+// import ReactDOM from './react-dom';
+
+// // const ele = (
+// //   <div title='test' style='background: #ff0000;'>
+// //     <h3 className='title'>test react</h3>
+// //   </div>
+// // )
+
+// function Home() {
+//   return (
+//     <div title='test' style='background: #ff0000;'>
+//       <h3 className='title'>test react</h3>
+//     </div>
+//   )
+// }
+
+// console.log(<Home />);
+
+// ReactDOM.render(Home, document.querySelector('#root'));

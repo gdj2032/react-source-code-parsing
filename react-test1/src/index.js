@@ -4,7 +4,7 @@ import './index.css';
 
 const ele = (
   <div>
-    <h3 className='title'>hello react</h3>
+    <h3 className='title'>test react</h3>
   </div>
 )
 
@@ -24,5 +24,4 @@ const ele = (
 //   className: "title"
 // }, "hello react"));
 
-//jsx 虚拟Dom 语法糖
 ReactDOM.render(ele, document.getElementById('root'));
