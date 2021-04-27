@@ -18,15 +18,15 @@ function _render(vnode) {
     return document.createTextNode(vnode);
   }
   const { tag, attrs, childrens } = vnode;
-  console.log("🚀 ~ file: index.js ~ line 18 ~ _render ~ tag", tag)
+  // console.log("🚀 ~ file: index.js ~ line 18 ~ _render ~ tag", tag)
   if (typeof tag === 'function') {
     //是个函数
     //1创建组件
     const comp = createComponent(tag, attrs);
-    console.log('_render comp1: ', comp);
+    // console.log('_render comp1: ', comp);
     //2设置组件属性
     setComponentProps(comp, attrs);
-    console.log('_render comp2: ', comp);
+    // console.log('_render comp2: ', comp);
     //3组件渲染的节点对象返回
     return comp.base;
   }
@@ -42,14 +42,14 @@ function _render(vnode) {
   }
 
   //渲染子节点
-  childrens.forEach(e => {
+  childrens && childrens.forEach(e => {
     render(e, dom);
   })
   return dom;
 }
 
 function createComponent(comp, props) {
-  console.log("🚀 ~ file: index.js ~ line 49 ~ createComponent ~ comp", comp, comp.prototype)
+  // console.log("🚀 ~ file: index.js ~ line 49 ~ createComponent ~ comp", comp, comp.prototype)
   let inst;
   if (comp.prototype && comp.prototype.render) {
     //类定义
@@ -66,18 +66,43 @@ function createComponent(comp, props) {
 }
 
 function setComponentProps(comp, props) {
+
+  //在创建组件之后 渲染组件之前 添加生命周期
+  if (!comp.base) {
+    comp.componentWillMount && comp.componentWillMount();
+  } else if (comp.componentReceiveProps) {
+    comp.componentReceiveProps(props)
+  }
+
   //设置属性
   comp.props = props;
+
   //渲染组件
   renderComponent(comp);
 }
 
-function renderComponent(comp) {
+//组件渲染
+export function renderComponent(comp) {
   let base;
-  const ren = comp.render()
-  console.log('renderComponent ren: ', ren);
-  base = _render(ren);
-  console.log('renderComponent base', base);
+  const renderer = comp.render()
+  // console.log('renderComponent renderer: ', renderer);
+  base = _render(renderer);
+  if (comp.base && comp.componentWillUpdate) {
+    //组件将要更新
+    comp.componentWillUpdate();
+  }
+  if (comp.base) {
+    comp.componentDidUpdate && comp.componentDidUpdate();
+  } else if (comp.componentDidMount) {
+    comp.componentDidMount();
+  }
+
+  //节点替换
+  if (comp.base && comp.base.parentNode) {
+    comp.base.parentNode.replaceChild(base, comp.base);
+  }
+
+  // console.log('renderComponent base', base);
   comp.base = base;
 }
 
@@ -123,7 +148,6 @@ function setAttribute(dom, key, value) {
       dom.removeAttribute(key, value)
     }
   }
-
 }
 
 export default ReactDOM;

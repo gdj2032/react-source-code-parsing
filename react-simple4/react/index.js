@@ -13,5 +13,5 @@ function createElement(tag, attrs, ...childrens) {
 
 export default React;
 export {
-  Component,
+  Component
 };

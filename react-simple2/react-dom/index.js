@@ -3,7 +3,10 @@ const ReactDOM = {
 }
 
 function render(vnode, container) {
-  if (vnode === undefined) return;
+  if (vnode === undefined || vnode === null || typeof vnode === 'boolean' || vnode === '') vnode = '';
+  if (typeof vnode === 'number') {
+    vnode = String(vnode);
+  }
   if (typeof vnode === 'string') {
     //创建文本节点
     const textNode = document.createTextNode(vnode);
@@ -39,11 +42,10 @@ function setAttribute(dom, key, value) {
   // 如果是个事件onClick onBlur ...
   if (/on\w/.test(key)) {
     //转小写
+    console.log('on : ', value);
     key = key.toLowerCase();
     dom[key] = value || '';
-  }
-
-  if (key === 'style') {
+  } else if (key === 'style') {
     if (!value || typeof value === 'string') {
       dom.style.cssText = value || '';
     } else if (value && typeof value === 'object') {
@@ -59,20 +61,19 @@ function setAttribute(dom, key, value) {
         }
       }
     }
-  }
-
-  //其他属性
-  if(key in dom) {
-    dom[key] = value || '';
-  }
-
-  if (value) {
-    //更新值
-    dom.setAttribute(key, value);
   } else {
-    dom.removeAttribute(key, value)
-  }
+    //其他属性
+    if (key in dom) {
+      dom[key] = value || '';
+    }
 
+    if (value) {
+      //更新值
+      dom.setAttribute(key, value);
+    } else {
+      dom.removeAttribute(key, value)
+    }
+  }
 }
 
 export default ReactDOM;
