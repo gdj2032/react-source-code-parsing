@@ -3,6 +3,7 @@ const ReactDOM = {
 }
 
 function render(vnode, container) {
+  console.log(vnode);
   if (vnode === undefined || vnode === null || typeof vnode === 'boolean' || vnode === '') vnode = '';
   if (typeof vnode === 'number') {
     vnode = String(vnode);
