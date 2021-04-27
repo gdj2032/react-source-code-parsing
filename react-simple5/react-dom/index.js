@@ -1,11 +1,12 @@
 import { Component } from '../react';
+import { diff, diffNode } from './diff'
 
 const ReactDOM = {
   render,
 }
 
-function render(vnode, container) {
-  return container.appendChild(_render(vnode));
+function render(vnode, container, dom) {
+  return diff(dom, vnode, container);
 }
 
 function _render(vnode) {
@@ -48,7 +49,7 @@ function _render(vnode) {
   return dom;
 }
 
-function createComponent(comp, props) {
+export function createComponent(comp, props) {
   // console.log("🚀 ~ file: index.js ~ line 49 ~ createComponent ~ comp", comp, comp.prototype)
   let inst;
   if (comp.prototype && comp.prototype.render) {
@@ -65,7 +66,7 @@ function createComponent(comp, props) {
   return inst;
 }
 
-function setComponentProps(comp, props) {
+export function setComponentProps(comp, props) {
 
   //在创建组件之后 渲染组件之前 添加生命周期
   if (!comp.base) {
@@ -86,7 +87,8 @@ export function renderComponent(comp) {
   let base;
   const renderer = comp.render()
   // console.log('renderComponent renderer: ', renderer);
-  base = _render(renderer);
+  // base = _render(renderer);
+  base = diffNode(comp.base, renderer)
   if (comp.base && comp.componentWillUpdate) {
     //组件将要更新
     comp.componentWillUpdate();
@@ -98,16 +100,16 @@ export function renderComponent(comp) {
   }
 
   //节点替换
-  if (comp.base && comp.base.parentNode) {
-    comp.base.parentNode.replaceChild(base, comp.base);
-  }
+  // if (comp.base && comp.base.parentNode) {
+  //   comp.base.parentNode.replaceChild(base, comp.base);
+  // }
 
   // console.log('renderComponent base', base);
   comp.base = base;
 }
 
 //设置属性
-function setAttribute(dom, key, value) {
+export function setAttribute(dom, key, value) {
   //将属性名className转换成class
   if (key === 'className') {
     key = 'class';

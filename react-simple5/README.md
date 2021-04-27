@@ -1,2 +1,2 @@
 # react-simple3
-react 生命周期
+react diff算法

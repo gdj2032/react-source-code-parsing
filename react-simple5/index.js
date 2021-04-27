@@ -1,11 +1,11 @@
 import React, { Component } from './react';
 import ReactDOM from './react-dom';
 
-// const ele = (
-//   <div title='test' style='background: #ff0000;'>
-//     <h3 className='title'>test react</h3>
-//   </div>
-// )
+const ele = (
+  <div title='test' style='background: #ff000050;'>
+    <h3 className='title'>test react</h3>
+  </div>
+)
 
 class User extends Component {
 
@@ -66,4 +66,5 @@ function Home() {
 
 // console.log(<Home name='active' />);
 
+// ReactDOM.render(ele, document.querySelector('#root'));
 ReactDOM.render(<User name='active' />, document.querySelector('#root'));
