@@ -49,7 +49,6 @@ function _render(vnode) {
 }
 
 function createComponent(comp, props) {
-  console.log("🚀 ~ file: index.js ~ line 49 ~ createComponent ~ comp", comp, comp.prototype)
   let inst;
   if (comp.prototype && comp.prototype.render) {
     //类定义

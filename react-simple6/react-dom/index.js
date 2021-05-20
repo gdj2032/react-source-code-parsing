@@ -89,6 +89,7 @@ export function renderComponent(comp) {
   // console.log('renderComponent renderer: ', renderer);
   // base = _render(renderer);
   base = diffNode(comp.base, renderer)
+  comp.base = base;
   if (comp.base && comp.componentWillUpdate) {
     //组件将要更新
     comp.componentWillUpdate();
@@ -105,7 +106,7 @@ export function renderComponent(comp) {
   // }
 
   // console.log('renderComponent base', base);
-  comp.base = base;
+  // comp.base = base;
 }
 
 //设置属性

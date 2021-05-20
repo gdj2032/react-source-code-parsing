@@ -25,11 +25,11 @@ export function diffNode(dom, vnode) {
   if (typeof vnode === 'string') {
     if (dom && dom.nodeType === 3) {
       //更新文本内容
-      if (dom.textContent !== vnode) dom.textContent = vnode;
+      if (dom.textContent !== vnode) out.textContent = vnode;
     } else {
       out = document.createTextNode(vnode);
       if (dom && dom.parentNode) {
-        dom.parentNode.replaceNode(out, dom);
+        dom.parentNode.replaceChild(out, dom);
       }
     }
     return out;
@@ -80,12 +80,14 @@ function diffComponent(dom, vnode) {
 }
 
 function unmountComponent(comp) {
-  removeNode(comp.base)
+  console.log(1, comp);
+  removeNode(comp)
 }
 
 function removeNode(dom) {
+  console.log(2, dom.parentNode);
   if (dom && dom.parentNode) {
-    dom.parentNode.removeNode(dom);
+    dom.parentNode.removeChild(dom);
   }
 }
 
@@ -144,12 +146,15 @@ function diffChildrens(dom, vChildren) {
       const f = domChildren[i];
       if (child && child !== dom && child !== f) {
         if (!f) {
+          console.log(1);
           //如果更新前的对应位置为空, 说明此节点是新增的
           dom.appendChild(child)
         } else if (child === f.nextSibling) {
+          console.log(2);
           // 如果更新后的节点和更新前对应位置的下一个节点一样，说明当前位置的节点被移除了
           removeNode(f)
         } else {
+          console.log(3);
           //将更新后的节点移动到正确位置,第一个参数是需要插入的节点对象, 第二个对象是在其之前插入新节点的子节点
           dom.insertBefore(child, f);
         }
@@ -175,8 +180,8 @@ function diffAttribute(dom, vnode) {
 
   //保存之前dom的所有属性
   const oldAttrs = {}
-  const newAttrs = vnode.attrs;
-  const domAttrs = dom.attributes;
+  const newAttrs = vnode.attrs; //虚拟DOM的属性 (也是最新的属性)
+  const domAttrs = dom.attributes; //获取真实DOM属性
   [...domAttrs].forEach(e => {
     oldAttrs[e.name] = e.value;
   })
