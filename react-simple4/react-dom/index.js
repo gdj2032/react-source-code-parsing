@@ -9,7 +9,7 @@ function render(vnode, container) {
 }
 
 function _render(vnode) {
-  if (vnode === undefined || vnode === null || typeof vnode === 'boolean' || vnode === '') vnode = '';
+  if ([undefined, null, true, false, ''].includes(vnode)) vnode = '';
   if (typeof vnode === 'number') {
     vnode = String(vnode);
   }

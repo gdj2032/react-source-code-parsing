@@ -6,6 +6,7 @@ import { setAttribute, setComponentProps, createComponent } from './index'
  * @param {*} dom 真实dom
  * @param {*} vnode 虚拟dom
  * @param {*} container 容器
+ * @returns : 更新后的DOM
  */
 export function diff(dom, vnode, container) {
   //对比节点变化
@@ -18,7 +19,7 @@ export function diff(dom, vnode, container) {
 
 export function diffNode(dom, vnode) {
   let out = dom;
-  if (vnode === undefined || vnode === null || typeof vnode === 'boolean' || vnode === '') vnode = '';
+  if ([undefined, null, true, false, ''].includes(vnode)) vnode = '';
   if (typeof vnode === 'number') {
     vnode = String(vnode);
   }

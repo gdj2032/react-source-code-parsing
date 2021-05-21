@@ -61,4 +61,54 @@ npm i @babel/core @babel/plugin-syntax-jsx @babel/plugin-transform-react-jsx @ba
 - 抽象语法树(Abstract Syntax Tree, AST) 是源代码语法结构的一种抽象表示.它以树状的形式表现编程语言的语法结构,树上的每个节点都表示源代码中的一种结构.
 
 ![avatar](https://upload-images.jianshu.io/upload_images/6383319-b70c4cc018199852.png?imageMogr2/auto-orient/strip|imageView2/2/w/678/format/webp)
+
+    AST 描述语法的
+    vnode 描述界面的样子(用对象描述dom元素)
+
 #### 2.4.3 babel 工作流
+
+![avatar](https://note.youdao.com/yws/api/personal/file/WEB0b53bbcf42e1cf2defc3ad8cad796355?method=download&shareKey=f9d98d7e33af9c3bfdc6a2c905b0db19)
+
+## 3.对Virtual DOM的理解
+
+React.createElement 函数返回的就是一个虚拟DOM
+
+虚拟DOM是一个描述真实DOM的纯js对象
+
+### 3.1 优缺点
+
+### 3.1.1 优点
+
+- 处理了浏览器兼容性问题,避免用户操作真实dom,那么又麻烦又容易出错
+- 内容经过了XSS处理,可以防范XSS攻击
+- 容易实现跨平台开发Android Ios VR等应用
+- 更新的时候可以实现差异化更新,减少更新dom的操作
+
+简单的说就是: 跨平台 增量更新 处理兼容性问题
+
+#### 3.1.2 缺点
+
+- 虚拟dom需要消耗额外的内存
+- 首次渲染其实并不一定会更快
+
+    vnode渲染成真实dom后,占用的内存会释放.
+
+## 4.函数组件和类组件
+
+组件允许你将UI拆分为独立可复用的代码片段,并对每个片段进行独立的构思
+
+### 4.1.1 相同点
+
+- 都可以接受属性并且返回React元素
+
+### 4.1.2 不同点
+
+- 编程思想不同: 类组件需要创建实例,是基于面向对象的方式编程;而函数式组件不需要创建实例,接收输入,返回输出,是基于函数式编程的思想
+- 内存占用: 类组件需要创建并保存实例,会占用一定内存,函数组件不需要创建实例,可以节约内存占用
+- 捕获特性: 函数组件具有值捕获特性
+- 可测试性: 函数式组件更方便编写单元测试
+- 状态: 类组件有自己的实例,可以定义状态,还可以修改状态更新组件,函数式组件以前没有状态,现在可以使用useState使用状态
+- 生命周期: 类组件有完整的生命周期, 函数组件以前没用,现在有useEffect来实现类似生命周期的功能
+- 逻辑复用: 类组件可以通过继承实现逻辑复用,但官方推荐组件优于继承,函数组件可以通过自定义Hooks实现逻辑复用
+- 跳过更新: 类组件: shouldComponentUpdate和PureComponent, 函数式组件: React.memo 来实现跳过更新
+- 发展前景
