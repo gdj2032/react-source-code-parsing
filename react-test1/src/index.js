@@ -38,4 +38,4 @@ const ele2 = React.createElement('div', { id: 'a1', key: 'a1' },
 console.log(ele1);
 console.log(ele2);
 
-ReactDOM.render(<Main />, document.getElementById('root'));
+ReactDOM.render(ele, document.getElementById('root'));

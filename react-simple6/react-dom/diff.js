@@ -50,6 +50,7 @@ export function diffNode(dom, vnode) {
     //对比组件或子节点
     diffChildrens(out, vnode.childrens)
   }
+  // 如果真实DOM存在,需要对比属性和对比子节点
   diffAttribute(out, vnode);
   return out;
 }

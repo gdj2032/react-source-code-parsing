@@ -84,9 +84,9 @@ function setComponentProps(comp, props) {
 //组件渲染
 export function renderComponent(comp) {
   let base;
-  const renderer = comp.render()
-  // console.log('renderComponent renderer: ', renderer);
-  base = _render(renderer);
+  const vdom = comp.render()
+  // console.log('renderComponent vdom: ', vdom);
+  base = _render(vdom);
   if (comp.base && comp.componentWillUpdate) {
     //组件将要更新
     comp.componentWillUpdate();

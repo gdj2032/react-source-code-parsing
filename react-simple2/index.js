@@ -26,8 +26,7 @@ const ele = (
 // ReactDOM.render(ele, document.querySelector('#root'));
 
 //最核心: 组件化开发
-//1. 为什么ReactDOM.render()必须引入React?
-//2. 组件: 函数组件 类组件
+//为什么ReactDOM.render()必须引入React?
 
 ReactDOM.render(ele, document.querySelector('#root'));
 

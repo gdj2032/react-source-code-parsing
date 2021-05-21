@@ -51,6 +51,7 @@ export function diffNode(dom, vnode) {
     //对比组件或子节点
     diffChildrens(out, vnode.childrens)
   }
+  // 如果真实DOM存在,需要对比属性和对比子节点
   diffAttribute(out, vnode);
   return out;
 }
@@ -92,8 +93,8 @@ function removeNode(dom) {
 
 /**
  *
- * @param {*} out
- * @param {*} vnode
+ * @param {*} dom 真实dom
+ * @param {*} vChildren 虚拟dom孩子节点数组
  */
 function diffChildrens(dom, vChildren) {
   const domChildren = dom.childNodes;
